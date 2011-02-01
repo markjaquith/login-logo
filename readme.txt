@@ -41,9 +41,12 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 
 == Changelog ==
 
+= 0.2 =
+* Do not use `background-size` unless the image is more than 326 pixels
+
 = 0.1 =
 * Original version
 
 == Upgrade Notice ==
 
-Upgrade now!
+Upgrade now to avoid stretching small images

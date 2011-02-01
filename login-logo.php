@@ -2,7 +2,7 @@
 /*
 Plugin Name: Login Logo
 Description: Drop a PNG file named <code>login-logo.png</code> into your <code>wp-content</code> directory. This simple plugin takes care of the rest, with zero configuration. Transparent backgrounds work best. Keep the width below 326 pixels.
-Version: 0.1
+Version: 0.2
 License: GPL
 Author: Mark Jaquith
 Author URI: http://coveredwebservices.com/
@@ -10,6 +10,7 @@ Author URI: http://coveredwebservices.com/
 
 class CWS_Login_Logo_Plugin {
 	static $instance;
+	const cutoff = 326;
 	var $logo_path;
 	var $logo_url;
 	var $width = 0;
@@ -63,11 +64,11 @@ class CWS_Login_Logo_Plugin {
 				$this->width  = $sizes[0];
 				$this->height = $sizes[1];
 				$this->original_height = $this->height;
-				if ( $this->width > 326 ) {
+				if ( $this->width > self::cutoff ) {
 					// Use CSS 3 scaling
 					$ratio = $this->height / $this->width;
-					$this->height = ceil( $ratio * 326 );
-					$this->width = 326;
+					$this->height = ceil( $ratio * self::cutoff );
+					$this->width = self::cutoff;
 				}
 			} else {
 				$this->logo_file_exists = false;
@@ -88,17 +89,19 @@ class CWS_Login_Logo_Plugin {
 	<style type="text/css">
 		h1 a {
 			background: url(<?php echo esc_url_raw( $this->logo_url ); ?>) no-repeat top center;
-			width: 326px;
+			width: <?php echo self::cutoff; ?>px;
 			height: <?php echo $this->get_height() + 3; ?>px;
-			<?php $this->css3( 'background-size', 'contain' ); ?>
+			<?php if ( self::cutoff < $this->get_width() ) $this->css3( 'background-size', 'contain' ); ?>
 		}
 	</style>
+<?php if ( self::cutoff < $this->get_width() ) { ?>
 <!--[if lt IE 9]>
 	<style type="text/css">
 		height: <?php echo $this->get_original_height() + 3; ?>px;
 	</style>
 <![endif]-->
 <?php
+		}
 	}
 
 }
