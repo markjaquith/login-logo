@@ -2,7 +2,7 @@
 /*
 Plugin Name: Login Logo
 Description: Drop a PNG file named <code>login-logo.png</code> into your <code>wp-content</code> directory. This simple plugin takes care of the rest, with zero configuration. Transparent backgrounds work best. Keep the width below 326 pixels.
-Version: 0.2
+Version: 0.3-beta
 License: GPL
 Author: Mark Jaquith
 Author URI: http://coveredwebservices.com/
@@ -11,8 +11,8 @@ Author URI: http://coveredwebservices.com/
 class CWS_Login_Logo_Plugin {
 	static $instance;
 	const cutoff = 326;
-	var $logo_path;
-	var $logo_url;
+	var $logo_locations;
+	var $logo_location;
 	var $width = 0;
 	var $height = 0;
 	var $original_height;
@@ -27,17 +27,46 @@ class CWS_Login_Logo_Plugin {
 	private function add_hooks() {
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'login_head', array( $this, 'login_head' ) );
+		add_filter( 'login_headerurl', array( $this, 'login_headerurl' ) );
 	}
 
 	public function init() {
-		$this->logo_path = WP_CONTENT_DIR . '/login-logo.png';
-		$this->logo_url  = WP_CONTENT_URL . '/login-logo.png';
+		$this->logo_locations = array();
+		if ( is_multisite() && function_exists( 'get_current_site' ) ) {
+			$site = get_current_site();
+			if ( $site && isset( $site->site_id ) ) {
+				$this->logo_locations['network'] = array(
+					'path' => WP_CONTENT_DIR . '/login-logo-network-' . $site->site_id . '.png',
+					'url' => WP_CONTENT_URL . '/login-logo-network-' . $site->site_id . '.png'
+					);
+			}
+		}
+		$this->logo_locations['global'] =  array(
+			'path' => WP_CONTENT_DIR . '/login-logo.png',
+			'url' => WP_CONTENT_URL . '/login-logo.png'
+			);
+
 	}
 
 	private function logo_file_exists() {
-		if ( ! isset( $this->logo_file_exists ) )
-			$this->logo_file_exists = !! file_exists( $this->logo_path );
+		if ( ! isset( $this->logo_file_exists ) ) {
+			foreach ( $this->logo_locations as $location ) {
+				if ( $this->logo_file_exists = !! file_exists( $location['path'] ) ) {
+					$this->logo_location = $location;
+				}
+			}
+		}
 		return !! $this->logo_file_exists;
+	}
+
+	private function get_location( $what = '' ) {
+		if ( $this->logo_file_exists() ) {
+			if ( 'path' == $what || 'url' == $what )
+				return $this->logo_location[$what];
+			else
+				return $this->logo_location;
+		}
+		return false;
 	}
 
 	private function get_width() {
@@ -59,7 +88,7 @@ class CWS_Login_Logo_Plugin {
 		if ( !$this->logo_file_exists() )
 			return false;
 		if ( !$this->logo_size ) {
-			if ( $sizes = getimagesize( $this->logo_path ) ) {
+			if ( $sizes = getimagesize( $this->get_location( 'path' ) ) ) {
 				$this->logo_size = $sizes;
 				$this->width  = $sizes[0];
 				$this->height = $sizes[1];
@@ -83,12 +112,16 @@ class CWS_Login_Logo_Plugin {
 		}
 	}
 
+	public function login_headerurl() {
+		return trailingslashit( get_bloginfo( 'url' ) );
+	}
+
 	public function login_head() {
 	?>
 	<!-- Login Logo plugin for WordPress: http://txfx.net/wordpress-plugins/login-logo/ -->
 	<style type="text/css">
 		h1 a {
-			background: url(<?php echo esc_url_raw( $this->logo_url ); ?>) no-repeat top center;
+			background: url(<?php echo esc_url_raw( $this->get_location( 'url' ) ); ?>) no-repeat top center;
 			width: <?php echo self::cutoff; ?>px;
 			height: <?php echo $this->get_height() + 3; ?>px;
 			<?php if ( self::cutoff < $this->get_width() ) $this->css3( 'background-size', 'contain' ); ?>
