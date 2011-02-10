@@ -24,7 +24,9 @@ This plugin also works in the `mu-plugins` directory.
 
 3. Upload the PNG image to your WordPress content directory (`/wp-content/`, by default), and name the file `login-logo.png`.
 
-4. Done! The login screen will now use your logo.
+4. If you have a multisite install with more than one network, you can also use `login-logo-network-{NETWORK ID}.png` to assign a different login logo to each network.
+
+5. Done! The login screen will now use your logo.
 
 == Screenshots ==
 
@@ -40,6 +42,10 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 
 
 == Changelog ==
+= 0.3 =
+* The login logo now links to your site, instead of WordPress.org
+* If you don't have a custom login logo, the plugin does nothing.
+* You can provide `login-logo-network-{NETWORK ID}.png` to have a different logo per multisite network.
 
 = 0.2 =
 * Do not use `background-size` unless the image is more than 326 pixels
@@ -48,5 +54,8 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 * Original version
 
 == Upgrade Notice ==
+= 0.3 =
+Makes the logo link to your site instead of WordPress.org! Support for per-network logos.
 
-Upgrade now to avoid stretching small images
+= 0.2 =
+Upgrade now to avoid stretching small images.
