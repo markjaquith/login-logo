@@ -21,23 +21,17 @@ class CWS_Login_Logo_Plugin {
 
 	public function __construct() {
 		self::$instance = $this;
-		$this->add_hooks();
-	}
-
-	private function add_hooks() {
-		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'login_head', array( $this, 'login_head' ) );
-		add_filter( 'login_headerurl', array( $this, 'login_headerurl' ) );
 	}
 
 	public function init() {
 		$this->logo_locations = array();
 		if ( is_multisite() && function_exists( 'get_current_site' ) ) {
-			$site = get_current_site();
-			if ( $site && isset( $site->site_id ) ) {
+			$site = get_current_site(); // Site = Network? Ugh.
+			if ( $site && isset( $site->id ) ) {
 				$this->logo_locations['network'] = array(
-					'path' => WP_CONTENT_DIR . '/login-logo-network-' . $site->site_id . '.png',
-					'url' => WP_CONTENT_URL . '/login-logo-network-' . $site->site_id . '.png'
+					'path' => WP_CONTENT_DIR . '/login-logo-network-' . $site->id . '.png',
+					'url' => WP_CONTENT_URL . '/login-logo-network-' . $site->id . '.png'
 					);
 			}
 		}
@@ -45,14 +39,17 @@ class CWS_Login_Logo_Plugin {
 			'path' => WP_CONTENT_DIR . '/login-logo.png',
 			'url' => WP_CONTENT_URL . '/login-logo.png'
 			);
-
 	}
 
 	private function logo_file_exists() {
 		if ( ! isset( $this->logo_file_exists ) ) {
 			foreach ( $this->logo_locations as $location ) {
-				if ( $this->logo_file_exists = !! file_exists( $location['path'] ) ) {
+				if ( file_exists( $location['path'] ) ) {
+					$this->logo_file_exists = true;
 					$this->logo_location = $location;
+					break;
+				} else {
+					$this->logo_file_exists = false;
 				}
 			}
 		}
@@ -117,6 +114,10 @@ class CWS_Login_Logo_Plugin {
 	}
 
 	public function login_head() {
+		$this->init();
+		if ( !$this->logo_file_exists() )
+			return;
+		add_filter( 'login_headerurl', array( $this, 'login_headerurl' ) );
 	?>
 	<!-- Login Logo plugin for WordPress: http://txfx.net/wordpress-plugins/login-logo/ -->
 	<style type="text/css">
