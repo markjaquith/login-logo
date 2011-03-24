@@ -42,6 +42,9 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 
 
 == Changelog ==
+= 0.4 =
+* Use HTTPS if `is_ssl()` on the login page.
+
 = 0.3 =
 * The login logo now links to your site, instead of WordPress.org
 * If you don't have a custom login logo, the plugin does nothing.
@@ -54,6 +57,9 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 * Original version
 
 == Upgrade Notice ==
+= 0.4 =
+Adds support for SSL
+
 = 0.3 =
 Makes the logo link to your site instead of WordPress.org! Support for per-network logos.
 
