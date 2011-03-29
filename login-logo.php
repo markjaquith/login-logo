@@ -2,7 +2,7 @@
 /*
 Plugin Name: Login Logo
 Description: Drop a PNG file named <code>login-logo.png</code> into your <code>wp-content</code> directory. This simple plugin takes care of the rest, with zero configuration. Transparent backgrounds work best. Keep the width below 326 pixels.
-Version: 0.4-beta
+Version: 0.4
 License: GPL
 Author: Mark Jaquith
 Author URI: http://coveredwebservices.com/
