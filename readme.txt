@@ -44,6 +44,7 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 == Changelog ==
 = 0.5 =
 * Support for WordPress 3.3
+* Fix a bug in CSS resizing of oversized images
 
 = 0.4 =
 * Use HTTPS if `is_ssl()` on the login page.

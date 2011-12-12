@@ -15,6 +15,7 @@ class CWS_Login_Logo_Plugin {
 	var $logo_location;
 	var $width = 0;
 	var $height = 0;
+	var $original_width;
 	var $original_height;
 	var $logo_size;
 	var $logo_file_exists;
@@ -82,6 +83,11 @@ class CWS_Login_Logo_Plugin {
 		return absint( $this->height );
 	}
 
+	private function get_original_width() {
+		$this->get_logo_size();
+		return absint( $this->original_width );
+	}
+
 	private function get_original_height() {
 		$this->get_logo_size();
 		return absint( $this->original_height );
@@ -96,6 +102,7 @@ class CWS_Login_Logo_Plugin {
 				$this->width  = $sizes[0];
 				$this->height = $sizes[1];
 				$this->original_height = $this->height;
+				$this->original_width = $this->width;
 				if ( $this->width > self::cutoff ) {
 					// Use CSS 3 scaling
 					$ratio = $this->height / $this->width;
@@ -131,7 +138,7 @@ class CWS_Login_Logo_Plugin {
 			background: url(<?php echo esc_url_raw( $this->get_location( 'url' ) ); ?>) no-repeat top center;
 			width: <?php echo self::cutoff; ?>px;
 			height: <?php echo $this->get_height() + 3; ?>px;
-			<?php if ( self::cutoff < $this->get_width() ) $this->css3( 'background-size', 'contain' ); ?>
+			<?php if ( self::cutoff < $this->get_original_width() ) $this->css3( 'background-size', 'contain' ); ?>
 		}
 	</style>
 <?php if ( self::cutoff < $this->get_width() ) { ?>
