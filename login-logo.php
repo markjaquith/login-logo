@@ -2,7 +2,7 @@
 /*
 Plugin Name: Login Logo
 Description: Drop a PNG file named <code>login-logo.png</code> into your <code>wp-content</code> directory. This simple plugin takes care of the rest, with zero configuration. Transparent backgrounds work best. Keep the width below 326 pixels.
-Version: 0.5
+Version: 0.6-beta-1
 License: GPL
 Author: Mark Jaquith
 Author URI: http://coveredwebservices.com/
@@ -26,8 +26,16 @@ class CWS_Login_Logo_Plugin {
 	}
 
 	public function init() {
+		global $blog_id;
 		$this->logo_locations = array();
 		if ( is_multisite() && function_exists( 'get_current_site' ) ) {
+			// First, see if there is one for this specific site (blog)
+			$this->logo_locations['site'] = array(
+				'path' => WP_CONTENT_DIR . '/login-logo-site-' . $blog_id . '.png',
+				'url' => $this->maybe_ssl( WP_CONTENT_URL . '/login-logo-site-' . $blog_id . '.png' )
+			);
+
+			// Next, we see if there is one for this specific network
 			$site = get_current_site(); // Site = Network? Ugh.
 			if ( $site && isset( $site->id ) ) {
 				$this->logo_locations['network'] = array(
@@ -36,6 +44,7 @@ class CWS_Login_Logo_Plugin {
 					);
 			}
 		}
+		// Finally, we do a global lookup
 		$this->logo_locations['global'] =  array(
 			'path' => WP_CONTENT_DIR . '/login-logo.png',
 			'url' => $this->maybe_ssl( WP_CONTENT_URL . '/login-logo.png' )

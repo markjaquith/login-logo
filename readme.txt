@@ -26,7 +26,9 @@ This plugin also works in the `mu-plugins` directory.
 
 4. If you have a multisite install with more than one network, you can also use `login-logo-network-{NETWORK ID}.png` to assign a different login logo to each network.
 
-5. Done! The login screen will now use your logo.
+5. If you have a multisite install, you can also use `login-logo-site-{$blog_id}.png` to assign a different login logo to each site.
+
+6. Done! The login screen will now use your logo.
 
 == Screenshots ==
 
@@ -42,6 +44,10 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 
 
 == Changelog ==
+
+= 0.6 =
+* You can provide `login-logo-site-{$blog_id}.png` to have a different logo per multisite site.
+
 = 0.5 =
 * Support for WordPress 3.3
 * Fix a bug in CSS resizing of oversized images
@@ -61,6 +67,10 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 * Original version
 
 == Upgrade Notice ==
+
+= 0.6 =
+Upgrade if you want the ability to set a custom logo per site on a network.
+
 = 0.5 =
 Upgrade immediately or the plugin will not work in WordPress 3.3!
 
