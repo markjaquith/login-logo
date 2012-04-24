@@ -12,7 +12,7 @@ Customize the logo on the WP login screen by simply dropping a file named login-
 
 This plugin allows you to customize the logo on the WordPress login screen. There is zero configuration. You just drop the logo file into your WordPress content directory, named `login-logo.png` and this plugin takes over.
 
-Note that you should use a transparent background on the PNG image and keep the width below 326 pixels for best results. Larger images will be downsized in modern browsers, but it isn't recommended to rely on that.
+Note that you should use a transparent background on the PNG image, crop it tightly (no padding pixels) and use a width of exactly 312 pixels for best results. Wider images will be downscaled in modern browsers, but it isn't recommended to rely on that.
 
 This plugin also works in the `mu-plugins` directory.
 
@@ -20,7 +20,7 @@ This plugin also works in the `mu-plugins` directory.
 
 1. [Click here](http://coveredwebservices.com/wp-plugin-install/?plugin=login-logo) to install and activate.
 
-2. Create a PNG image of less than 326 pixels wide, with a transparent background.
+2. Create a PNG image with a transparent background, tightly cropped, with a recommended width of 312 pixels.
 
 3. Upload the PNG image to your WordPress content directory (`/wp-content/`, by default), and name the file `login-logo.png`.
 
@@ -40,13 +40,15 @@ This plugin also works in the `mu-plugins` directory.
 
 = Why does my image look strange in IE or an outdated browser? =
 
-Your image is probably too wide. Wide images are scaled down in IE 9 or other modern browsers, but not in older browsers. Use an image that is no more than 326 pixels wide.
+Your image is probably too wide. Wide images are scaled down in IE 9 or other modern browsers, but not in older browsers. Use an image that is no more than 312 pixels wide.
 
 
 == Changelog ==
 
 = 0.6 =
 * You can provide `login-logo-site-{$blog_id}.png` to have a different logo per multisite site.
+* Support for WordPress 3.4
+* Changed the ideal image width to 312 pixels, and instituted a tighter crop policy.
 
 = 0.5 =
 * Support for WordPress 3.3
@@ -69,7 +71,7 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 == Upgrade Notice ==
 
 = 0.6 =
-Upgrade if you want the ability to set a custom logo per site on a network.
+Upgrade now for WordPress 3.4 support! Also adds the ability to set a custom logo per site on a network.
 
 = 0.5 =
 Upgrade immediately or the plugin will not work in WordPress 3.3!

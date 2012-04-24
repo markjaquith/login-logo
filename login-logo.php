@@ -10,7 +10,7 @@ Author URI: http://coveredwebservices.com/
 
 class CWS_Login_Logo_Plugin {
 	static $instance;
-	const cutoff = 326;
+	const cutoff = 312;
 	var $logo_locations;
 	var $logo_location;
 	var $width = 0;
@@ -146,8 +146,15 @@ class CWS_Login_Logo_Plugin {
 		.login h1 a {
 			background: url(<?php echo esc_url_raw( $this->get_location( 'url' ) ); ?>) no-repeat top center;
 			width: <?php echo self::cutoff; ?>px;
-			height: <?php echo $this->get_height() + 3; ?>px;
-			<?php if ( self::cutoff < $this->get_original_width() ) $this->css3( 'background-size', 'contain' ); ?>
+			height: <?php echo $this->get_height(); ?>px;
+			margin-left: 8px;
+			padding-bottom: 16px;
+			<?php
+			if ( self::cutoff < $this->get_original_width() )
+				$this->css3( 'background-size', 'contain' );
+			else
+				$this->css3( 'background-size', 'auto' );
+			?>
 		}
 	</style>
 <?php if ( self::cutoff < $this->get_width() ) { ?>
