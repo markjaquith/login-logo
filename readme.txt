@@ -46,7 +46,8 @@ Your image is probably too wide. Wide images are scaled down in IE 9 or other mo
 == Changelog ==
 
 = 0.7 =
-* The "title" attribute of the header link matches the WordPress site title instead of saying "Powered by WordPress"
+* The "title" attribute of the header link matches the WordPress site title instead of saying "Powered by WordPress".
+* The URL for the login logo includes "versioning" based on last file modification date, for browser cache flushing.
 
 = 0.6 =
 * You can provide `login-logo-site-{$blog_id}.png` to have a different logo per multisite site.
