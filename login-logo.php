@@ -51,7 +51,7 @@ class CWS_Login_Logo_Plugin {
 			// First, see if there is one for this specific site (blog)
 			$this->logo_locations['site'] = array(
 				'path' => WP_CONTENT_DIR . '/login-logo-site-' . $blog_id . '.png',
-				'url' => $this->maybe_ssl( WP_CONTENT_URL . '/login-logo-site-' . $blog_id . '.png' )
+				'url' => $this->maybe_ssl( content_url( 'login-logo-site-' . $blog_id . '.png' ) )
 			);
 
 			// Next, we see if there is one for this specific network
@@ -59,14 +59,14 @@ class CWS_Login_Logo_Plugin {
 			if ( $site && isset( $site->id ) ) {
 				$this->logo_locations['network'] = array(
 					'path' => WP_CONTENT_DIR . '/login-logo-network-' . $site->id . '.png',
-					'url' => $this->maybe_ssl( WP_CONTENT_URL . '/login-logo-network-' . $site->id . '.png' )
+					'url' => $this->maybe_ssl( content_url( 'login-logo-network-' . $site->id . '.png' ) )
 					);
 			}
 		}
 		// Finally, we do a global lookup
 		$this->logo_locations['global'] =  array(
 			'path' => WP_CONTENT_DIR . '/login-logo.png',
-			'url' => $this->maybe_ssl( WP_CONTENT_URL . '/login-logo.png' )
+			'url' => $this->maybe_ssl( content_url( 'login-logo.png' ) )
 			);
 	}
 
