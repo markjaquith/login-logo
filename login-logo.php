@@ -29,7 +29,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 class CWS_Login_Logo_Plugin {
 	static $instance;
-	const cutoff = 312;
+	const CUTOFF = 312;
 	var $logo_locations;
 	var $logo_location;
 	var $width = 0;
@@ -133,11 +133,11 @@ class CWS_Login_Logo_Plugin {
 				$this->height = $sizes[1];
 				$this->original_height = $this->height;
 				$this->original_width = $this->width;
-				if ( $this->width > self::cutoff ) {
+				if ( $this->width > self::CUTOFF ) {
 					// Use CSS 3 scaling
 					$ratio = $this->height / $this->width;
-					$this->height = ceil( $ratio * self::cutoff );
-					$this->width = self::cutoff;
+					$this->height = ceil( $ratio * self::CUTOFF );
+					$this->width = self::CUTOFF;
 				}
 			} else {
 				$this->logo_file_exists = false;
@@ -171,19 +171,19 @@ class CWS_Login_Logo_Plugin {
 	<style type="text/css">
 		.login h1 a {
 			background: url(<?php echo esc_url_raw( $this->get_location( 'url' ) ); ?>) no-repeat top center;
-			width: <?php echo self::cutoff; ?>px;
+			width: <?php echo self::CUTOFF; ?>px;
 			height: <?php echo $this->get_height(); ?>px;
 			margin-left: 8px;
 			padding-bottom: 16px;
 			<?php
-			if ( self::cutoff < $this->get_original_width() )
+			if ( self::CUTOFF < $this->get_original_width() )
 				$this->css3( 'background-size', 'contain' );
 			else
 				$this->css3( 'background-size', 'auto' );
 			?>
 		}
 	</style>
-<?php if ( self::cutoff < $this->get_width() ) { ?>
+<?php if ( self::CUTOFF < $this->get_width() ) { ?>
 <!--[if lt IE 9]>
 	<style type="text/css">
 		height: <?php echo $this->get_original_height() + 3; ?>px;
