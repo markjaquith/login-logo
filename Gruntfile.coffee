@@ -42,6 +42,7 @@ module.exports = (grunt) ->
 					'!img/src/**'
 					'!Gruntfile.*'
 					'!package.json'
+					'!package-lock.json'
 					'!.gitignore'
 					'!.gitmodules'
 					'!tests/**'
