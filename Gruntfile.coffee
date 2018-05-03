@@ -50,11 +50,6 @@ module.exports = (grunt) ->
 					'!.travis.yml'
 					'!phpunit.xml'
 				]
-				dest: 'release/<%= pkg.version %>/'
-			svn:
-				cwd: 'release/<%= pkg.version %>/'
-				expand: yes
-				src: '**'
 				dest: 'release/svn/'
 
 		replace:
@@ -122,12 +117,11 @@ module.exports = (grunt) ->
 	grunt.registerTask 'build', [
 		'default'
 		'clean'
-		'copy:main'
 	]
 
 	# Prepare a WordPress.org release
 	grunt.registerTask 'release:prepare', [
-		'copy:svn'
+		'copy'
 		'replace:svn_readme'
 		'clean:svn_readme_md'
 	]
@@ -139,9 +133,7 @@ module.exports = (grunt) ->
 
 	# WordPress.org release task
 	grunt.registerTask 'release', [
-		# Everyone builds
 		'build'
-		# Only for WordPress.org
 		'release:prepare'
 		'release:deploy'
 	]
