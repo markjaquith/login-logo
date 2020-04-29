@@ -2,15 +2,15 @@
 /*
 Plugin Name: Login Logo
 Description: Drop a PNG file named <code>login-logo.png</code> into your <code>wp-content</code> directory. This simple plugin takes care of the rest, with zero configuration. Transparent backgrounds work best. Crop it tight, with a width of 312 pixels, for best results.
-Version: 0.10.0
+Version: 1.0.0
 License: GPL
 Plugin URI: http://txfx.net/wordpress-plugins/login-logo/
 Author: Mark Jaquith
-Author URI: http://coveredwebservices.com/
+Author URI: https://coveredweb.com/
 
 ==========================================================================
 
-Copyright 2011-2018  Mark Jaquith
+Copyright (c) 2011-2020 Mark Jaquith (email: mark@jaquith.me)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -167,7 +167,7 @@ class CWS_Login_Logo_Plugin {
 		add_filter( 'login_headerurl', array( $this, 'login_headerurl' ) );
 		add_filter( version_compare( get_bloginfo( 'version' ), '5.2', '>=' ) ? 'login_headertext' : 'login_headertitle', array( $this, 'login_headertitle' ) );
 	?>
-	<!-- Login Logo plugin for WordPress: http://txfx.net/wordpress-plugins/login-logo/ -->
+	<!-- Login Logo plugin for WordPress: https://txfx.net/wordpress-plugins/login-logo/ -->
 	<style type="text/css">
 		.login h1 a {
 			background: url(<?php echo esc_url_raw( $this->get_location( 'url' ) ); ?>) no-repeat top center;

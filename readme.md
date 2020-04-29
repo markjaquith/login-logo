@@ -2,8 +2,8 @@
 Contributors: markjaquith  
 Donate link: http://txfx.net/wordpress-plugins/donate  
 Tags: customize, login, login screen, logo, custom logo  
-Requires at least: 3.3  
-Tested up to: 5.2.1 
+Requires at least: 5.1.2  
+Tested up to: 5.4.0 
 
 Customize the logo on the WP login screen by simply dropping a file named login-logo.png into your WP content directory. CSS is automatic!
 
@@ -35,16 +35,9 @@ This plugin also works in the `mu-plugins` directory.
 
 2. A source image
 
-## Frequently Asked Questions ##
-
-### Why does my image look strange in IE or an outdated browser? ###
-
-Your image is probably too wide. Wide images are scaled down in IE 9 or other modern browsers, but not in older browsers. Use an image that is no more than 312 pixels wide.
-
-
 ## Changelog ##
 
-### 0.10 ###
+### 1.0.0 ###
 * Updated depreciated filter "login_headertitle" to "login_headertext" with compatibility for older WordPress versions
 * Tested with WordPress 5.2.1
 
