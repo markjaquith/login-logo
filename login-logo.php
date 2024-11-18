@@ -183,7 +183,7 @@ class CWS_Login_Logo_Plugin {
 		?>
 		<!-- Login Logo plugin for WordPress: https://txfx.net/wordpress-plugins/login-logo/ -->
 		<style>
-			.login h1 a {
+			#login h1 a {
 				background: url(<?php echo esc_url_raw($this->get_location('url')); ?>) no-repeat top center;
 				width: <?php echo self::CUTOFF; ?>px;
 				height: <?php echo $this->get_height(); ?>px;
